@@ -55,7 +55,7 @@ extracted/
 
 Lua filenames change from `.lua.bytes` to `.lua`. Plain Lua is preserved and
 encoded Lua is decoded with repeating XOR. RPC mapping and data-version JSON
-remain unchanged. Older snapshots may not contain the version JSON.
+remain unchanged.
 
 The extraction manifest records `schema_version`, `extraction_id`, `tool_version`,
 `extracted_at`, `source_snapshot_id`, `source_bundle_hash`,
