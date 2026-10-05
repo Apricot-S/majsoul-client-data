@@ -2,8 +2,7 @@
 
 See the [README](../README.md) for setup and a quick start, and
 [output formats](output-formats.md) for generated files and provenance records.
-Examples use sh and `uv run --locked majsoul-client-data`; the same
-subcommands and options work with Docker.
+Examples use sh and `majsoul-client-data`; the same subcommands and options work with Docker.
 
 ## Shared behavior
 
@@ -36,7 +35,7 @@ guarantee protection against IP bans.
 ## inspect
 
 ```sh
-uv run --locked majsoul-client-data inspect --timeout 20
+majsoul-client-data inspect --timeout 20
 ```
 
 Makes exactly one GET to `https://game.mahjongsoul.com/`. The URL is fixed to the
@@ -48,9 +47,9 @@ See [inspection JSON](output-formats.md#inspection-json) for output fields.
 ## fetch
 
 ```sh
-uv run --locked majsoul-client-data fetch --texture-profile DXT
-uv run --locked majsoul-client-data fetch --metadata-only
-uv run --locked majsoul-client-data fetch --output-dir output/jp --overwrite
+majsoul-client-data fetch --texture-profile DXT
+majsoul-client-data fetch --metadata-only
+majsoul-client-data fetch --output-dir output/jp --overwrite
 ```
 
 | Option                         | Default              | Meaning                                                        |
@@ -107,8 +106,8 @@ containers and unsupported compression/encryption are rejected.
 ## extract
 
 ```sh
-uv run --locked majsoul-client-data extract
-uv run --locked majsoul-client-data extract \
+majsoul-client-data extract
+majsoul-client-data extract \
   --input-dir output/jp --output-dir output/decoded --overwrite
 ```
 
@@ -143,8 +142,8 @@ the source manifest and previous extraction. Outputs inside the input's
 ## convert
 
 ```sh
-uv run --locked majsoul-client-data convert
-uv run --locked majsoul-client-data convert \
+majsoul-client-data convert
+majsoul-client-data convert \
   --input-dir output/decoded --output-dir output/json --overwrite
 ```
 
@@ -180,8 +179,8 @@ regenerated with `extract` before conversion. Outputs inside input `LuaByte/` or
 ## merge-proto
 
 ```sh
-uv run --locked majsoul-client-data merge-proto
-uv run --locked majsoul-client-data merge-proto \
+majsoul-client-data merge-proto
+majsoul-client-data merge-proto \
   --input-dir output/converted --output output/liqi.proto --overwrite
 ```
 
@@ -219,11 +218,11 @@ with older schemas is not guaranteed.
 ## run
 
 ```sh
-uv run --locked majsoul-client-data run
-uv run --locked majsoul-client-data run --overwrite
-uv run --locked majsoul-client-data run --merge-proto
-uv run --locked majsoul-client-data run --merge-proto output/liqi.proto
-uv run --locked majsoul-client-data run \
+majsoul-client-data run
+majsoul-client-data run --overwrite
+majsoul-client-data run --merge-proto
+majsoul-client-data run --merge-proto output/liqi.proto
+majsoul-client-data run \
   --output-dir output/fetched \
   --extracted-dir output/extracted \
   --converted-dir output/converted
