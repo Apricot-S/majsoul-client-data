@@ -161,10 +161,7 @@ Ambiguous type references and unsupported descriptions stop processing.
 Unresolved RPC types are retained in JSON and excluded from generated services.
 Protoc is not required. The input manifest is not updated by conversion.
 
-Extracted results previously saved under `raw/` can be selected with
-`--input-dir`. Older extraction layouts containing `lua/` and `assets/` must be
-regenerated with `extract` before conversion. Outputs inside input `LuaByte/` or
-`MyAssets/` directories are rejected.
+Outputs inside input `LuaByte/` or `MyAssets/` directories are rejected.
 
 | Resource                            | Limit             |
 | ----------------------------------- | ----------------- |
