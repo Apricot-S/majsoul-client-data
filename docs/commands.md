@@ -126,10 +126,6 @@ If multiple supported name representations exist, extraction fails rather than
 choosing a preferred one. Plain/decoded Lua undergoes full lexical and bracket
 checks, which are not a complete Lua syntax validation.
 
-The version JSON, when present, must contain a nonempty string `version`.
-Malformed JSON or an invalid version stops extraction. Older snapshots without
-the version asset may be fetched again if version information is needed.
-
 On success, extraction updates the source snapshot's `stages.extract` record with
 completion, file count, and the extraction manifest location. Failures preserve
 the source manifest and previous extraction. Outputs inside the input's
