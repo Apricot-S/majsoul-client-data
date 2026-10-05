@@ -209,8 +209,7 @@ protoc --proto_path=. --python_out=. liqi.proto
 ```
 
 Using `liqi_pb2.py` requires a compatible Python protobuf runtime. Generated
-classes and `DESCRIPTOR` can be accessed from a single module; compatibility
-with older schemas is not guaranteed.
+classes and `DESCRIPTOR` can be accessed from a single module.
 
 ## run
 
