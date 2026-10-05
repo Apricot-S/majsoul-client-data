@@ -1,0 +1,13 @@
+# Only package inputs belong in the build context.
+**
+
+!pyproject.toml
+!uv.lock
+!src/
+!src/**
+**/__pycache__/
+**/*.py[cod]
+
+!README.md
+!LICENSE
+!THIRD-PARTY-NOTICES.md

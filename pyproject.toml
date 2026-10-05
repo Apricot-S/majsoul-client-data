@@ -1,0 +1,81 @@
+[project]
+name = "majsoul-client-data"
+version = "0.1.0"
+description = "Fetch, extract and convert Mahjong Soul client configuration and protocol data"
+authors = [
+    { name = "Apricot S." },
+]
+license = "MIT"
+license-files = ["LICENSE", "THIRD-PARTY-NOTICES.md"]
+readme = "README.md"
+requires-python = ">=3.12"
+keywords = ["mahjong", "Mahjong Soul", "Majsoul"]
+classifiers = [
+    "Private :: Do Not Upload",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "niquests>=3.21.2,<4",
+    "unitypy>=1.25.3,<2",
+]
+
+[project.scripts]
+majsoul-client-data = "majsoul_client_data.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.22,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    { include-group = "lint" },
+    { include-group = "test" },
+    { include-group = "typing" },
+]
+lint = [
+    "ruff>=0.16.10,<0.17",
+]
+test = [
+    "pytest>=9.1.1,<10",
+]
+typing = [
+    "ty>=0.0.84",
+]
+
+[tool.pytest]
+minversion = "9.0"
+strict = true
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "D",       # pydocstyle
+    "COM812",  # missing-trailing-comma
+    "ANN002",  # missing-type-args
+    "ANN003",  # missing-type-kwargs
+    "TD002",   # missing-todo-author
+    "TD003",   # missing-todo-link
+    "CPY001",  # missing-copyright-notice
+    "T201",    # print
+]
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 72
+ignore-overlong-task-comments = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.extend-per-file-ignores]
+"./tests/*" = [
+    "S101",    # assert
+    "PLR2004", # magic-value-comparison
+]
