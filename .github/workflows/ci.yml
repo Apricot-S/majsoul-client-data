@@ -56,7 +56,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv sync --no-default-groups --group typing --group test --no-install-project
+        uv sync --locked --no-default-groups --group typing --group test --no-install-project
 
     - name: Type check with ty
       run: |
@@ -84,7 +84,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv sync --no-default-groups --group test
+        uv sync --locked --no-default-groups --group test
 
     - name: Test with pytest
       run: |
