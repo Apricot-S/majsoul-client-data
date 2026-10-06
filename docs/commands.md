@@ -205,7 +205,7 @@ directory and replacing a directory are rejected.
 To generate Python code separately with protoc:
 
 ```sh
-protoc --proto_path=. --python_out=. liqi.proto
+protoc --proto_path=. --python_out=. --pyi_out=. liqi.proto
 ```
 
 Using `liqi_pb2.py` requires a compatible Python protobuf runtime. Generated
