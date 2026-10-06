@@ -114,9 +114,9 @@ not download targets.
 
 ## Exit codes
 
-Successful commands print JSON to standard output and exit with code **0**.
-Processing failures print an error to standard error and exit with code **1**.
-Invalid arguments, including running without a subcommand, exit with code **2**.
+- `0`: Success. Commands print JSON to standard output.
+- `1`: Processing failure. An error is printed to standard error.
+- `2`: Invalid arguments, including running without a subcommand.
 
 ## Documentation
 
