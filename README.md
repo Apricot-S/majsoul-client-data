@@ -37,7 +37,7 @@ Omit `--merge-proto` if you only need the converted data.
 
 See [output formats](docs/output-formats.md) for file layouts and manifest details.
 
-## Run with Docker
+### Run with Docker
 
 ```sh
 docker build -t majsoul-client-data .
