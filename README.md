@@ -53,7 +53,7 @@ The container runs as a non-root user (UID 10001); the mounted directory must be
 writable. On Linux hosts, add `--user "$(id -u):$(id -g)"` to `docker run` to use
 your host user's UID and GID.
 
-## Commands
+### Commands
 
 | Command       | Purpose                                                               | Network access   |
 | ------------- | --------------------------------------------------------------------- | ---------------- |
@@ -77,7 +77,7 @@ majsoul-client-data merge-proto
 Use `--help` or `<command> --help` for arguments. See the
 [command reference](docs/commands.md) for options, processing rules, and limits.
 
-## Output locations and reruns
+### Output locations and reruns
 
 Use separate destinations to retain multiple snapshots:
 
@@ -102,7 +102,7 @@ majsoul-client-data convert --overwrite
 `run` stops at the first failure. Use individual commands to continue from saved
 inputs. Input and output directories must not overlap.
 
-## Network behavior and limitations
+### Network behavior and limitations
 
 Requests run sequentially, with at least two seconds between requests. The default
 timeout is 20 seconds, configurable with `--timeout`. Automatic retries are disabled.
@@ -112,7 +112,7 @@ protocol Lua, RPC mapping, or the data version. Other assets may be transferred
 if they share a selected bundle. Scenario, UI configuration, and Spine data are
 not download targets.
 
-## Exit codes
+### Exit codes
 
 - `0`: Success. Commands print JSON to standard output.
 - `1`: Processing failure. An error is printed to standard error.
