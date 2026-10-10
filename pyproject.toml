@@ -43,7 +43,7 @@ test = [
     "pytest>=9.1.1,<10",
 ]
 typing = [
-    "ty>=0.0.84",
+    "ty>=0.0.86",
 ]
 
 [tool.pytest]
