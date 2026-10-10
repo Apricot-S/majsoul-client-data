@@ -1,5 +1,5 @@
 import re
-from collections.abc import Iterator
+from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -53,7 +53,7 @@ def protect_input(destination: Path, source: Path) -> None:
 @contextmanager
 def publish(
     staging: Path, destination: Path, *, overwrite: bool
-) -> Iterator[None]:
+) -> Generator[None, None, None]:
     validate_destination(destination, overwrite=overwrite)
     with TemporaryDirectory(
         prefix=".partial-backup-", dir=destination.parent
