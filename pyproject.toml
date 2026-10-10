@@ -1,6 +1,6 @@
 [project]
 name = "majsoul-client-data"
-version = "0.1.0"
+version = "0.1.1"
 description = "Fetch, extract and convert Mahjong Soul client configuration and protocol data"
 authors = [
     { name = "Apricot S." },
@@ -27,7 +27,7 @@ dependencies = [
 majsoul-client-data = "majsoul_client_data.cli:main"
 
 [build-system]
-requires = ["uv_build>=0.12.22,<0.13.0"]
+requires = ["uv_build>=0.12.22,<0.14.0"]
 build-backend = "uv_build"
 
 [dependency-groups]
@@ -37,13 +37,13 @@ dev = [
     { include-group = "typing" },
 ]
 lint = [
-    "ruff>=0.16.10,<0.17",
+    "ruff>=0.17.0,<0.18",
 ]
 test = [
     "pytest>=9.1.1,<10",
 ]
 typing = [
-    "ty>=0.0.84",
+    "ty>=0.0.86",
 ]
 
 [tool.pytest]
