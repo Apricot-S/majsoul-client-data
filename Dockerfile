@@ -5,7 +5,7 @@ ARG OS_VERSION=trixie
 FROM python:${PYTHON_VERSION}-slim-${OS_VERSION} AS base
 
 FROM base AS builder
-COPY --from=ghcr.io/astral-sh/uv:0.12 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.13 /uv /uvx /bin/
 
 ENV UV_PYTHON_DOWNLOADS=never
 
