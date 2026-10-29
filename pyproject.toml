@@ -1,6 +1,6 @@
 [project]
 name = "majsoul-client-data"
-version = "0.1.2"
+version = "0.1.3"
 description = "Fetch, extract and convert Mahjong Soul client configuration and protocol data"
 authors = [
     { name = "Apricot S." },
