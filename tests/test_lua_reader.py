@@ -16,25 +16,53 @@ def test_reading_at_a_position_keeps_the_callers_cursor() -> None:
 
 
 @pytest.mark.parametrize(
-    ("source", "literal", "is_source"),
+    ("source", "literal"),
     [
-        ('return "value"', "value", True),
-        ("return [=[value]=]", "value", True),
-        ('--[[return fake]]\nreturn "value"', "value", True),
-        ('--[=[return fake\n]=]return "value"', None, True),
-        ('return "line\nbreak"', "line\nbreak", False),
+        ('return "value"', "value"),
+        ("return [=[value]=]", "value"),
+        ('--[[return fake]]\nreturn "value"', "value"),
+        ('--[=[return fake\n]=]return "value"', "value"),
+        ('--[===[return fake\n]===]return "value"', "value"),
+        ('return "--[=[comment]=]"', "--[=[comment]=]"),
+        ("return [==[--[=[comment]=] } (\n]==]", "--[=[comment]=] } (\n"),
+        (r'''return "escaped\"--text"''', 'escaped"--text'),
     ],
 )
-def test_source_validation_and_literal_reading_keep_distinct_rules(
-    source: str, literal: str | None, *, is_source: bool
+def test_source_validation_and_literal_reading_share_lexical_rules(
+    source: str, literal: str
 ) -> None:
-    assert _looks_like_lua(source.encode()) is is_source
+    assert _looks_like_lua(source.encode())
     reader = Reader(source)
-    if literal is None:
-        assert reader.tokens == ["]", "=", "]", "return", '"value"']
-    else:
-        reader.take("return")
-        assert reader.value() == literal
+    reader.take("return")
+    assert reader.value() == literal
+    assert reader.pos == len(reader.tokens)
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        'return "line\nbreak"',
+        'return "unterminated',
+        "return 'unterminated",
+        "return [=[unterminated]]",
+        "return {} --[=[unterminated]]",
+    ],
+)
+def test_source_validation_and_reading_reject_invalid_lexemes(
+    source: str,
+) -> None:
+    assert not _looks_like_lua(source.encode())
+    with pytest.raises(ValueError, match="Lua"):
+        Reader(source)
+
+
+def test_comments_do_not_consume_the_token_budget(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr("majsoul_client_data.lua.MAX_TOKENS", 3)
+    assert parse_literal(
+        "--[=[\nignored tokens here\n]=]\n{1}-- trailing"
+    ) == [1]
 
 
 def test_dense_lua_data_keeps_its_existing_token_boundaries() -> None:
