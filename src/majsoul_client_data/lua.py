@@ -2,7 +2,7 @@ import math
 import re
 from dataclasses import dataclass
 
-from .lexing import IDENT, NUMBER, TOKEN, require
+from .lexing import IDENT, NUMBER, lua_tokens, require
 
 MAX_DEPTH = 64
 BYTE_MAX = 255
@@ -83,13 +83,7 @@ def string_value(lexeme: str) -> str:
 
 class Reader:
     def __init__(self, source: str) -> None:
-        self.tokens = []
-        for match in TOKEN.finditer(source):
-            lexeme = match[0]
-            if lexeme.isspace() or lexeme.startswith("--"):
-                continue
-            require(len(self.tokens) < MAX_TOKENS, "Lua token limit exceeded")
-            self.tokens.append(lexeme)
+        self.tokens = list(lua_tokens(source, max_tokens=MAX_TOKENS))
         self.pos = 0
 
     def peek(self, offset: int = 0) -> str:

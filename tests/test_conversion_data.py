@@ -1,8 +1,39 @@
 import pytest
 
+from majsoul_client_data.extract import decode_lua
 from majsoul_client_data.lua import parse_literal
 from majsoul_client_data.protocol import convert_protocol
 from majsoul_client_data.tables import convert_tables
+
+
+@pytest.mark.parametrize("equals", ["", "=", "==="])
+def test_commented_rows_do_not_enter_converted_tables(equals: str) -> None:
+    source = (
+        "local b=a.Pack;local f={id=1}local g={1}local h=function(i,j)"
+        "return d(i,j,f,g)end;k[1]=b({1},h)"
+    )
+    commented = (
+        source + f"\n--[{equals}[\nk[2]=b({{999}},h)\n]{equals}]return k"
+    )
+    decoded = decode_lua(commented.encode()).decode()
+    sources = {"All": 'local a={{TableName="a",SheetName="b"}}'}
+    expected = convert_tables({**sources, "Data.a.b": source + "return k"})
+    assert expected[0] == {"a/b": [{"id": 1}]}
+    assert convert_tables({**sources, "Data.a.b": decoded}) == expected
+
+
+@pytest.mark.parametrize("equals", ["", "=", "==="])
+def test_commented_descriptors_do_not_change_protocols(equals: str) -> None:
+    source = (
+        'local a=require"protobuf.protobuf"M=a.Descriptor()'
+        'M.name="Request"M.full_name=".lq.Request"'
+        "M.fields={}M.nested_types={}M.enum_types={}"
+    )
+    commented = source + f'\n--[{equals}[\nM.name="Injected"\n]{equals}]'
+    decoded = decode_lua(commented.encode()).decode()
+    config = {"service": {}}
+    expected = convert_protocol({"Protol.demo_pb": source}, config)
+    assert convert_protocol({"Protol.demo_pb": decoded}, config) == expected
 
 
 def test_lua_literals_decode_bytes_and_do_not_execute_calls() -> None:
